@@ -1,12 +1,12 @@
-go
 package db
 
 import (
-    "database/sql"
-    "log"
+	"database/sql"
+	"log"
 
-    _ "github.com/go-sql-driver/mysql"
-    "myproject/config"
+	"goparkin_service/config"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var MySQLDB *sql.DB

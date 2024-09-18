@@ -1,10 +1,11 @@
-go
 package redis
 
 import (
-    "github.com/go-redis/redis/v8"
-    "log"
-    "myproject/config"
+	"context"
+	"goparkin_service/config"
+	"log"
+
+	"github.com/go-redis/redis/v8"
 )
 
 var RedisClient *redis.Client

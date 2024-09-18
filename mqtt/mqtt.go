@@ -1,10 +1,10 @@
-go
 package mqtt
 
 import (
-    "github.com/eclipse/paho.mqtt.golang"
-    "log"
-    "myproject/config"
+	"goparkin_service/config"
+	"log"
+
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
 var MQTTClient mqtt.Client

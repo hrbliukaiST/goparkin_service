@@ -1,12 +1,12 @@
-go
 package db
 
 import (
-    "context"
-    "go.mongodb.org/mongo-driver/mongo"
-    "go.mongodb.org/mongo-driver/mongo/options"
-    "log"
-    "myproject/config"
+	"context"
+	"goparkin_service/config"
+	"log"
+
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var MongoDB *mongo.Client

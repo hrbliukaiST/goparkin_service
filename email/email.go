@@ -1,9 +1,9 @@
-go
 package email
 
 import (
-    "gopkg.in/gomail.v2"
-    "myproject/config"
+	"goparkin_service/config"
+
+	"gopkg.in/gomail.v2"
 )
 
 func SendEmail(to string, subject string, body string) error {

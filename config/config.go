@@ -1,9 +1,8 @@
-go
 package config
 
 import (
-    "log"
-    "os"
+	"log"
+	"os"
 )
 
 type Config struct {
