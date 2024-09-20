@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100vh;
+  height: 98vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,7 @@ body {
 }
 .container {
   width: 100%;
-  height: 100vh;
+  height: 98vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,12 +19,12 @@ body {
 }
 .status {
   width: 100%;
-  height: 40vh;
+  height: 65vh;
   background-color: #e0f0e0;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 148px;
+  font-size: 180px;
   font-weight: bold;
   color: #333;
   border: 2px solid #ccc;
@@ -32,7 +32,7 @@ body {
 }
 .instruction {
   width: 100%;
-  height: 20vh;
+  height: 35vh;
   background-color: #ccc;
   display: flex;
   justify-content: center;
@@ -45,12 +45,12 @@ body {
 }
 .avalable {
   width: 100%;
-  height: 40vh;
+  height: 30vh;
   background-color: #e0f0e0;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 148px;
+  font-size: 160px;
   font-weight: bold;
   color: #333;
   border: 2px solid #ccc;
@@ -58,12 +58,12 @@ body {
 }
 .reserved {
   width: 100%;
-  height: 40vh;
+  height: 65vh;
   background-color: #f7cecc;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 148px;
+  font-size: 160px;
   font-weight: bold;
   color: #333;
   border: 2px solid #ccc;

@@ -3,6 +3,7 @@ package main
 import (
 	"goparkin_service/config"
 	"goparkin_service/db"
+	"goparkin_service/mqtt"
 	"goparkin_service/routes"
 	"log"
 	"net/http"
@@ -38,7 +39,7 @@ func main() {
     // r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
     // r.Run(":7080")
-
+	log.Println("Server started ")
 	err := godotenv.Load(".env")
     if err != nil {
         log.Fatal("Error loading .env file")
@@ -51,10 +52,12 @@ func main() {
 		 }
 	 }	 		
 	config.LoadConfig()
+	log.Println("File loaded")
     db.InitMySQL()
     // db.InitMongoDB()
-    // mqtt.InitMQTT()
+    mqtt.InitMQTT()
     // redis.InitRedis()
+
 
     router := routes.SetupRoutes()
 
