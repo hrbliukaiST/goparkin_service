@@ -1,0 +1,10 @@
+# Ignore the vendor directory
+vendor/
+
+# Ignore Go build artifacts
+*.exe
+*.out
+*.test
+
+# Ignore local configuration files
+*.env

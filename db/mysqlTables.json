@@ -1,0 +1,31 @@
+{
+  "tables": [
+    {
+      "table_name": "users",
+      "structure": [
+        {
+          "column_name": "id",
+          "type": "INT",
+          "nullable": "NO",
+          "index": "PRIMARY KEY",
+          "unique": "YES",
+          "extra": "AUTO_INCREMENT"
+        },
+        {
+          "column_name": "name",
+          "type": "VARCHAR(100)",
+          "nullable": "YES",
+          "index": "",
+          "extra": ""
+        },
+        {
+          "column_name": "email",
+          "type": "VARCHAR(100)",
+          "nullable": "NO",
+          "index": "",
+          "extra": "UNIQUE"
+        }
+      ]
+    }
+  ]
+}

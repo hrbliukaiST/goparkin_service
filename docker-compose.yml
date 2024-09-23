@@ -1,0 +1,86 @@
+services:
+  web:
+    build: .
+    ports:
+      - "${API_PORT:-7080}:7080"
+    environment:
+      - DB_USERNAME=${DB_USERNAME:-matador}
+      - MYSQL_DSN=matador:P@ssw0rd@tcp(db:3306)/goparkin
+      - MQTT_BROKER=tcp://mqtt:1883
+      - DB_PASSWORD=${DB_PASSWORD:-"P@ssw0rd"}
+      - DB_HOST=${DB_HOST:-db}
+      - DB_NAME=${DB_NAME:-goparkin}
+      - API_PORT=7080
+      - APP_DB_PORT=3306
+      - APP_DB_HOST=db
+      - MQTT_PORT=1883
+      - MQTT_TOPIC=${MQTT_TOPIC:-goparkin}
+      - MQTT_TOPIC_2=${MQTT_TOPIC_2:-goparkin_2}
+      - MQTT_SUB_TOPIC=${MQTT_SUB_TOPIC:-goparkin_2/sub}
+      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      #- MONGO_HOST=${MONGO_HOST:-mongodb}
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+      - MONGO_DB=${MONGO_DB:-goparkin}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-AKIAV2LVKWBOROEJFG6F}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-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}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-ap-southeast-1}
+    depends_on:
+      - db
+      - mqtt
+      - redis
+      - mongodb
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8
+    ports:
+      - "${DB_PORT_EXTERNAL:-3326}:${DB_PORT:-3306}"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD:-"P@ssw0rd"}
+      - MYSQL_DATABASE=${DB_NAME:-goparkin}
+      - MYSQL_USER=${DB_USERNAME:-matador}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-"P@ssw0rd"}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      #- ./my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - app-network
+
+  mqtt:
+    image: eclipse-mosquitto:latest
+    ports:
+      - "${MQTT_PORT:-1883}:1883"
+      - "${MQTT_WS_PORT:-9001}:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    networks:
+      - app-network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  mongodb_data:

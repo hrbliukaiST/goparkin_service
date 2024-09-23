@@ -5,25 +5,31 @@ import (
 	"goparkin_service/db"
 	"goparkin_service/models"
 	"goparkin_service/service"
+	"log"
 	"net/http"
-	"strconv"
+
+	"github.com/gorilla/mux"
 	// Swagger packages
 	// Import docs
 )
 
 // CreateUser godoc
-// @Summary Create a user
-// @Description Create a new user in the database
+// @Summary Create a new user
+// @Description Create a new user with the provided details
 // @Tags users
 // @Accept json
 // @Produce json
-// @Param user body models.User true "User info"
-// @Success 200 {object} models.User
-// @Failure 400 {object} string
+// @Param user body models.User true "User details"
+// @Success 201 {object} models.User
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} string
 // @Router /users [post]
-var err error
+
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	var user models.User
+	vars := mux.Vars(r)
+	userIDStr := vars["id"]
+	log.Println("userIDStr loaded",userIDStr)
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -44,7 +50,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(user)
 }
-
+/*
 // GetUserByID godoc
 // @Summary Get a user by ID
 // @Description Retrieve a user by their unique ID
@@ -58,7 +64,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 // @Router /users/{id} [get]
 func GetUserByID(w http.ResponseWriter, r *http.Request) {
 	// Extract userID from the URL
-	userIDStr := r.URL.Query().Get("id")
+	vars := mux.Vars(r)
+    userIDStr := vars["id"]
 	userID, err := strconv.Atoi(userIDStr)
 	if err != nil {
 		http.Error(w, "Invalid user ID", http.StatusBadRequest)
@@ -74,4 +81,4 @@ func GetUserByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(user)
-}
+}*/

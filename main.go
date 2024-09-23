@@ -23,22 +23,7 @@ import (
 // @BasePath /
 
 func main() {
-    // r := gin.Default()
 
-    // // @Summary Get user by ID
-    // // @Description Get user by ID
-    // // @ID get-user-by-id
-    // // @Accept json
-    // // @Produce json
-    // // @Param id path int true "User ID"
-    // // @Success 200 {object} User
-    // // @Failure 404 {object} ErrorResponse
-    // // @Router /users/{id} [get]
-    // r.GET("/users/:id", getUser)
-
-    // r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-    // r.Run(":7080")
 	log.Println("Server started ")
 	err := godotenv.Load(".env")
     if err != nil {
