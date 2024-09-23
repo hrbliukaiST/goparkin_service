@@ -3,34 +3,39 @@ package routes
 import (
 	_ "goparkin_service/docs" // Import the generated docs
 	"goparkin_service/handlers"
+	"net/http"
 
 	"github.com/gorilla/mux"
 	httpSwagger "github.com/swaggo/http-swagger"
 	// http-swagger middleware
 )
 
+func methodNotAllowedHandler(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(http.StatusMethodNotAllowed)
+    w.Write([]byte(`{"error": "Method Not Allowed"}`))
+}
+
 func SetupRoutes() *mux.Router {
    
-    // router := gin.Default()
-
-    // // Swagger endpoint
-    // router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-    // // Define your routes
-    // router.POST("/users", gin.WrapF(handlers.CreateUser))
-    // router.GET("/users/:id", func(c *gin.Context) {
-    //     handlers.GetUserByID(c.Writer, c.Request)
-    // })
+  
     router := mux.NewRouter()
+
+    // Swagger UI
+    router.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
 
     // Add CREATE user route
     router.HandleFunc("/users", handlers.CreateUser).Methods("POST")
 
     // // Add GET user route
-    // router.HandleFunc("/users/{id}", handlers.GetUserByID).Methods("GET") // {{ edit_1 }}
+    router.HandleFunc("/users/{id}", handlers.GetUserByID).Methods("GET")
 
-    // Swagger UI
-    router.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
+    // Add Update user route
+    router.HandleFunc("/users/{id}", handlers.UpdateUser).Methods("PUT")
+
+    // Handle 405 Method Not Allowed
+    router.MethodNotAllowedHandler = http.HandlerFunc(methodNotAllowedHandler)
+
 
     return router
 }
